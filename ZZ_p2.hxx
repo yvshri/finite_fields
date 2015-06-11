@@ -50,6 +50,7 @@ public:
 
 
     static ZZ_p _qnr_square;
+    static zero, unity;
 private:
 	ZZ_p _a_1, _a_2;
 };

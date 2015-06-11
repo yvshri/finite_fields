@@ -76,6 +76,8 @@ ZZ_p2& operator*=(ZZ_p2& x_, const ZZ_p& b_){
 
 void init(const ZZ_p& qnr_square_){
     ZZ_p2::_qnr_square = qnr_square_;
+    ZZ_p2::zero = ZZ_p(0);
+    ZZ_p2::unity = ZZ_p(1);
 }
 // ZZ_p::init(p) sets the modulus to p (p > 1)
 
