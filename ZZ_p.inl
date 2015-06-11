@@ -368,10 +368,10 @@ ostream& operator<<(ostream& s_, const ZZ_p& a_){
 
 \**************************************************************************/
 
-void setZero(ZZ_p& x_){
+void setToZero(ZZ_p& x_){
     x_ = ZZ_p::zero();
 }
-void setUnity(ZZ_p& x_){
+void setToUnity(ZZ_p& x_){
     x_ = ZZ_p::unity();
 }
 

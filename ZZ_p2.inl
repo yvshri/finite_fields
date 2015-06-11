@@ -76,8 +76,8 @@ ZZ_p2& operator*=(ZZ_p2& x_, const ZZ_p& b_){
 
 void init(const ZZ_p& qnr_square_){
     ZZ_p2::_qnr_square = qnr_square_;
-    ZZ_p2::zero = ZZ_p(0);
-    ZZ_p2::unity = ZZ_p(1);
+    ZZ_p2::_zero = ZZ_p::zero();
+    ZZ_p2::_unity = ZZ_p::unity();
 }
 // ZZ_p::init(p) sets the modulus to p (p > 1)
 
@@ -86,6 +86,36 @@ const ZZ_p& qnrSquare(){
 }
 // ZZ_p::modulus() yields read-only reference to the current
 // modulus
+const ZZ_p2& ZZ_p2::zero(){
+    return ZZ_p2::_zero;
+}
+
+const ZZ_p2& ZZ_p2::unity(){
+    return ZZ_p2::_unity;
+}
+
+ZZ_p ZZ_p2::getFirst() const{
+    return _a_1;
+}
+
+ZZ_p ZZ_p2::getSecond() const{
+    return _a_2;
+}
+
+void ZZ_p2::setFirst(const ZZ_p& a_1_){
+    _a_1 = a_1_;
+}
+void ZZ_p2::setSecond(const ZZ_p& a_2_){
+    _a_2 = a_2_;
+}
+
+void setToUnity(ZZ_p2& x_){
+    x_ = ZZ_p2::_unity;
+}
+
+void setToZero(ZZ_p2& x_){
+    x_ = ZZ_p2::_zero;
+}
 
 ostream& operator<<(ostream& s_, const ZZ_p2& a_){
     s_ << "(" << a_._a_1 << "," << a_._a_2 << ")";
