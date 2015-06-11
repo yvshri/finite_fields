@@ -178,8 +178,8 @@ public:
                                    Miscellany
 
     \**************************************************************************/
-    void setZero(ZZ_p& x); // x = 0
-    void setUnity(ZZ_p& x); // x = 1
+    friend void setToZero(ZZ_p& x); // x = 0
+    friend void setToUnity(ZZ_p& x); // x = 1
     friend void swap(ZZ_p& x, ZZ_p& y);
     // swap x and y (done by "pointer swapping", if possible).
 

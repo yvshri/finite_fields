@@ -44,13 +44,25 @@ public:
     // ZZ_p::init(p) sets the modulus to p (p > 1)
 
     static const ZZ_p qnrSquare();
-    
+    static const ZZ_p2& zero();
+    // ZZ_p::zero() yields a read-only reference to zero
+  
+    static const ZZ_p2& unity();
+    // ZZ_p::zero() yields a read-only reference to unity
     friend ostream& operator<<(ostream& s, const ZZ_p2& x);
     // friend istream& operator>>(istream& s, ZZ_p& x);
 
+    ZZ_p getFirst() const;
+    ZZ_p getSecond() const;
+
+    void setFirst(const ZZ_p&);
+    void setSecond(const ZZ_p&);
+
+    friend void setToUnity(ZZ_p2&);
+    friend void setToZero(ZZ_p2&);
 
     static ZZ_p _qnr_square;
-    static zero, unity;
+    static ZZ_p2 _zero, _unity;
 private:
 	ZZ_p _a_1, _a_2;
 };
