@@ -38,13 +38,13 @@ public:
     ZZ_p(); // initialize to 0
     ZZ_p(const ZZ_p& a); // copy constructor
     explicit ZZ_p(mpz_t);
-    explicit ZZ_p(long a);  // promotion constructor
+    // explicit ZZ_p(const long a);  // promotion constructor
 
     ~ZZ_p(); // destructor
 
     ZZ_p& operator=(const ZZ_p& a); // assignment
     ZZ_p& operator=(mpz_t a); // assignment
-    ZZ_p& operator=(long);
+    // ZZ_p& operator=(const long);
 
     static void init(mpz_t p_);
     static void init(const long p_);
@@ -166,7 +166,7 @@ public:
 
     \**************************************************************************/
     friend ostream& operator<<(ostream&, const ZZ_p&);
-    friend istream& operator>>(istream&, ZZ_p&);
+    // friend istream& operator>>(istream&, ZZ_p&);
 
 
     // ostream& operator<<(ostream& s, const ZZ_p& a);

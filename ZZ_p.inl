@@ -21,13 +21,13 @@ ZZ_p::ZZ_p(mpz_t num_){
     setNum(num_);
 }
 
-ZZ_p::ZZ_p(const long num_){
-    mpz_t num;
-    mpz_inits(_num, num, NULL);
-    mpz_set_si(num, num_);
-    setNum(num);
-    mpz_clear(num);
-}
+// ZZ_p::ZZ_p(const long num_){
+//     mpz_t num;
+//     mpz_inits(_num, num, NULL);
+//     mpz_set_si(num, num_);
+//     setNum(num);
+//     mpz_clear(num);
+// }
 
 ZZ_p::~ZZ_p(){
     mpz_clear(_num);
@@ -47,14 +47,14 @@ ZZ_p& ZZ_p::operator=(mpz_t num_){
     return *this;
 }
 
-ZZ_p& ZZ_p::operator=(const long num_){
-    mpz_t num;
-    mpz_init(num);
-    mpz_set_si(num, num_);
-    setNum(num);
-    mpz_clear(num);
-    return *this;
-}
+// ZZ_p& ZZ_p::operator=(const long num_){
+//     mpz_t num;
+//     mpz_init(num);
+//     mpz_set_si(num, num_);
+//     setNum(num);
+//     mpz_clear(num);
+//     return *this;
+// }
 
 void ZZ_p::initConstants(){
     mpz_t zero, unity;
@@ -353,14 +353,14 @@ ostream& operator<<(ostream& s_, const ZZ_p& a_){
     return s_;
 }
 
-istream& operator>>(istream& s_, ZZ_p& x_){
-    mpz_t num;
-    mpz_init(num);
-    s_ >> num;
-    x_.setNum(num);
-    mpz_clear(num);
-    return s_;
-}
+// istream& operator>>(istream& s_, ZZ_p& x_){
+//     mpz_t num;
+//     mpz_init(num);
+//     s_ >> num;
+//     x_.setNum(num);
+//     mpz_clear(num);
+//     return s_;
+// }
 
 /**************************************************************************\
 
