@@ -15,7 +15,7 @@ The class ZZ_p2 is used to represent quadratic extension field. d
 class ZZ_p2
 {
 public:
-	ZZ_p2(ZZ_p a_1_ = ZZ_p(0), ZZ_p a_2_ = ZZ_p(0));
+	ZZ_p2(ZZ_p a_1_ = ZZ_p::zero(), ZZ_p a_2_ = ZZ_p::zero());
 	ZZ_p2(const ZZ_p2& a);
 	explicit ZZ_p2(const ZZ_p& a);
 	// explicit ZZ_p2(const mpz_t& a);
@@ -43,7 +43,7 @@ public:
 	static void init(const ZZ_p& qnr_square);
     // ZZ_p::init(p) sets the modulus to p (p > 1)
 
-    static const ZZ_p qnrSquare();
+    static const ZZ_p qnrSquareP();
     static const ZZ_p2& zero();
     // ZZ_p::zero() yields a read-only reference to zero
   

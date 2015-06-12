@@ -4,12 +4,12 @@ ZZ_p2::ZZ_p2(ZZ_p a_1_, ZZ_p a_2_):_a_1(a_1_), _a_2(a_2_){
 
 ZZ_p2::ZZ_p2(const ZZ_p2& a){
     _a_1 = a._a_1;
-    _a_1 = a._a_2;
+    _a_2 = a._a_2;
 }
 
 ZZ_p2::ZZ_p2(const ZZ_p& a_){
     _a_1 = a_;
-    _a_2 = 0;
+    _a_2 = ZZ_p::zero();
 }
 
 ZZ_p2::~ZZ_p2(){
@@ -18,12 +18,12 @@ ZZ_p2::~ZZ_p2(){
 
 ZZ_p2& ZZ_p2::operator=(const ZZ_p2& a_){
     _a_1 = a_._a_1;
-    _a_1 = a_._a_2;
+    _a_2 = a_._a_2;
     return *this;
 }
 ZZ_p2& ZZ_p2::operator=(const ZZ_p& a_1_){
     _a_1 = a_1_;
-    _a_2 = 0;
+    _a_2 = ZZ_p::zero();
     return *this;
 }
 
@@ -38,8 +38,9 @@ ZZ_p2 operator+(const ZZ_p2& a_, const ZZ_p2& b_){
     return sum;
 }
 ZZ_p2& operator+=(ZZ_p2& x_, const ZZ_p2& b_){
-    x_._a_1 = x_._a_1 + b_._a_1;
-    x_._a_2 = x_._a_2 + b_._a_2;
+    // x_._a_1 = x_._a_1 + b_._a_1;
+    // x_._a_2 = x_._a_2 + b_._a_2;
+    x_ = x_ + b_;
     return x_;
 }
 // friend void add(ZZ_p& x, const ZZ_p& a, const ZZ_p& b); // x = a + b
@@ -47,14 +48,15 @@ ZZ_p2& operator+=(ZZ_p2& x_, const ZZ_p2& b_){
 
 ZZ_p2 operator*(const ZZ_p2& a_, const ZZ_p2& b_){
     ZZ_p2 prod;
-    prod._a_1 = (a_._a_1) * (b_._a_1) + ZZ_p2::qnrSquare() * (a_._a_2) * (b_._a_2);
+    prod._a_1 = (a_._a_1) * (b_._a_1) + ZZ_p2::qnrSquareP() * (a_._a_2) * (b_._a_2);
     prod._a_2 = (a_._a_1) * (b_._a_2) + (a_._a_2) * (b_._a_1);
     return prod;
 }
 
 ZZ_p2& operator*=(ZZ_p2& x_, const ZZ_p2& b_){
-    x_._a_1 = (x_._a_1) * (b_._a_1) + ZZ_p2::qnrSquare() * (x_._a_2) * (b_._a_2);
-    x_._a_2 = (x_._a_1) * (b_._a_2) + (x_._a_2) * (b_._a_1);
+    // x_._a_1 = (x_._a_1) * (b_._a_1) + ZZ_p2::qnrSquareP() * (x_._a_2) * (b_._a_2);
+    // x_._a_2 = (x_._a_1) * (b_._a_2) + (x_._a_2) * (b_._a_1);
+    x_ = x_ * b_;
     return x_;
 }
 
@@ -66,8 +68,9 @@ ZZ_p2 operator*(const ZZ_p2& a_, const ZZ_p& b_){
 }
 
 ZZ_p2& operator*=(ZZ_p2& x_, const ZZ_p& b_){
-    x_._a_1 = (x_._a_1) * (b_);
-    x_._a_2 = (x_._a_2) * (b_);
+    // x_._a_1 = (x_._a_1) * (b_);
+    // x_._a_2 = (x_._a_2) * (b_);
+    x_ = x_ * b_;
     return x_;
 }
 
@@ -81,7 +84,7 @@ void init(const ZZ_p& qnr_square_){
 }
 // ZZ_p::init(p) sets the modulus to p (p > 1)
 
-const ZZ_p& qnrSquare(){
+const ZZ_p& qnrSquareP(){
     return ZZ_p2::_qnr_square;
 }
 // ZZ_p::modulus() yields read-only reference to the current

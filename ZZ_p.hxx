@@ -18,15 +18,15 @@ for saving and restoring a modulus (see classes ZZ_pPush and ZZ_pContext below).
 
 
 \**************************************************************************/
-#ifndef __ZZ_P_HXX // Control inclusion of header files
-#define __ZZ_P_HXX
+
 #include <iostream>
 #include <vector>
 #include <cstdlib>
 #include <cstdio>
 #include <algorithm>
 #include <gmp.h>
-
+#ifndef __ZZ_P_HXX // Control inclusion of header files
+#define __ZZ_P_HXX
 using namespace std;
 class ZZ_p {
 public:
