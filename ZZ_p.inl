@@ -248,7 +248,6 @@ void negate(ZZ_p& x_, const ZZ_p& a_){
 ZZ_p operator*(const ZZ_p& a_, const ZZ_p& b_){
     ZZ_p sum;
     mpz_t sum_num, result_a, result_b;
-    mpz_t result;
     mpz_inits(result_a, result_b, sum_num, NULL);
     a_.getNum(result_a);
     b_.getNum(result_b);
@@ -271,8 +270,25 @@ void mul(ZZ_p& x_, const ZZ_p& a_, const ZZ_p& b_){
     x_ = a_ * b_;
 }
 
-// void sqr(ZZ_p& x, const ZZ_p& a); // x = a^2
-// ZZ_p sqr(const ZZ_p& a); // x = a^2
+void sqr(ZZ_p& x_, const ZZ_p& a_){
+    ZZ_p sum;
+    mpz_t sum_num, result_a;
+    mpz_inits(result_a, sum_num, NULL);
+    a_.getNum(result_a);
+    mpz_mul(sum_num, result_a, result_a);
+    x_.setNum(sum_num);
+    mpz_clears(result_a, sum_num, NULL);
+}
+ZZ_p sqr(const ZZ_p& a_){
+    ZZ_p sum;
+    mpz_t sum_num, result_a;
+    mpz_inits(result_a, sum_num, NULL);
+    a_.getNum(result_a);
+    mpz_mul(sum_num, result_a, result_a);
+    sum.setNum(sum_num);
+    mpz_clears(result_a, sum_num, NULL);
+    return sum;
+}
 
 // PROMOTIONS: operator * and procedure mul provide promotions 
 // from long to ZZ_p on (a, b)

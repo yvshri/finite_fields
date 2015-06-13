@@ -114,11 +114,20 @@ ZZ_p2 ZZ_p6::getSecond() const{
     return _a_2;
 }
 
+ZZ_p2 ZZ_p6::getThird() const{
+    return _a_3;
+}
+
+
 void ZZ_p6::setFirst(const ZZ_p2& a_1_){
     _a_1 = a_1_;
 }
 void ZZ_p6::setSecond(const ZZ_p2& a_2_){
     _a_2 = a_2_;
+}
+
+void ZZ_p6::setThird(const ZZ_p2& a_3_){
+    _a_3 = a_3_;
 }
 
 void setToUnity(ZZ_p6& x_){

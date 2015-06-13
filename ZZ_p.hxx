@@ -116,9 +116,8 @@ public:
 
     \**************************************************************************/
     friend ZZ_p operator*(const ZZ_p& a, const ZZ_p& b);
-
     friend ZZ_p& operator*=(ZZ_p& x, const ZZ_p& b);
-    friend ZZ_p& operator*=(ZZ_p& x, long b);
+    // friend ZZ_p& operator*=(ZZ_p& x, long b);
 
     // procedural versions:
 
@@ -127,7 +126,6 @@ public:
 
     friend void sqr(ZZ_p& x, const ZZ_p& a); // x = a^2
     friend ZZ_p sqr(const ZZ_p& a); // x = a^2
-
     // PROMOTIONS: operator * and procedure mul provide promotions 
     // from long to ZZ_p on (a, b)
 
