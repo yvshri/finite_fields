@@ -40,10 +40,9 @@ public:
     friend ZZ_p12& operator*=(ZZ_p12& x, const ZZ_p6& b);
 
 
-	static void init(const ZZ_p6& qnr_square);
+	static void init();
     // ZZ_p6::init(p) sets the modulus to p (p > 1)
 
-    static const ZZ_p6 qnrSquareP6();
     static const ZZ_p12& zero();
     // ZZ_p6::zero() yields a read-only reference to zero
   
@@ -61,7 +60,6 @@ public:
     friend void setToUnity(ZZ_p12&);
     friend void setToZero(ZZ_p12&);
 
-    static ZZ_p6 _qnr_square;
     static ZZ_p12 _zero, _unity;
 private:
 	ZZ_p6 _a_1, _a_2;

@@ -55,6 +55,9 @@ public:
     // ZZ_p::modulus() yields read-only reference to the current
     // modulus
 
+    static const ZZ_p& qnr();
+    //Returns a qnr in this field
+
     static const ZZ_p& zero();
     // ZZ_p::zero() yields a read-only reference to zero
   
@@ -116,9 +119,8 @@ public:
 
     \**************************************************************************/
     friend ZZ_p operator*(const ZZ_p& a, const ZZ_p& b);
-
     friend ZZ_p& operator*=(ZZ_p& x, const ZZ_p& b);
-    friend ZZ_p& operator*=(ZZ_p& x, long b);
+    // friend ZZ_p& operator*=(ZZ_p& x, long b);
 
     // procedural versions:
 
@@ -127,7 +129,6 @@ public:
 
     friend void sqr(ZZ_p& x, const ZZ_p& a); // x = a^2
     friend ZZ_p sqr(const ZZ_p& a); // x = a^2
-
     // PROMOTIONS: operator * and procedure mul provide promotions 
     // from long to ZZ_p on (a, b)
 
@@ -189,6 +190,7 @@ public:
     //Getter setter
     void getNum(mpz_t) const;
     void setNum(mpz_t);
+    static ZZ_p _qnr;
     static mpz_t _mod;
     static ZZ_p _zero, _unity;
 private:
