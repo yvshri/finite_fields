@@ -2,11 +2,9 @@
 #include "point_ZZ_p.hxx"
 
 void doublePointAndCalcTangent(ZZ_p6& l_tangent_, PointZZ_p& output_, const PointZZ_p& input_, const PointZZ_p2& q_){
-	ZZ_p x_out, y_out, z_out, x_in, y_in, z_in, *t;
+	ZZ_p x_out, y_out, z_out, x_in, y_in, z_in, t[7];
 	const ZZ_p two(ZZ_p::unity() + ZZ_p::unity());
-	t = new ZZ_p[7];
-	ZZ_p2 *l;
-	l = new ZZ_p2[3];
+	ZZ_p2 l[3];
 	x_in = input_.getXJacobian();
 	y_in = input_.getYJacobian();
 	z_in = input_.getZJacobian();
@@ -81,7 +79,4 @@ void doublePointAndCalcTangent(ZZ_p6& l_tangent_, PointZZ_p& output_, const Poin
 	output_.setXJacobian(x_out);
 	output_.setYJacobian(x_out);
 	output_.setZJacobian(z_out);
-
-	delete(l);
-	delete(t);
 }

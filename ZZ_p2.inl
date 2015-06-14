@@ -48,14 +48,12 @@ ZZ_p2& operator+=(ZZ_p2& x_, const ZZ_p2& b_){
 
 ZZ_p2 operator*(const ZZ_p2& a_, const ZZ_p2& b_){
     ZZ_p2 prod;
-    prod._a_1 = (a_._a_1) * (b_._a_1) + ZZ_p2::qnrSquareP() * (a_._a_2) * (b_._a_2);
+    prod._a_1 = (a_._a_1) * (b_._a_1) + ZZ_p::qnr() * ZZ_p::qnr() * (a_._a_2) * (b_._a_2);
     prod._a_2 = (a_._a_1) * (b_._a_2) + (a_._a_2) * (b_._a_1);
     return prod;
 }
 
 ZZ_p2& operator*=(ZZ_p2& x_, const ZZ_p2& b_){
-    // x_._a_1 = (x_._a_1) * (b_._a_1) + ZZ_p2::qnrSquareP() * (x_._a_2) * (b_._a_2);
-    // x_._a_2 = (x_._a_1) * (b_._a_2) + (x_._a_2) * (b_._a_1);
     x_ = x_ * b_;
     return x_;
 }
@@ -77,15 +75,15 @@ ZZ_p2& operator*=(ZZ_p2& x_, const ZZ_p& b_){
 // friend ZZ_p& operator*=(ZZ_p& x, long b);
 // friend void mul(ZZ_p& x, const ZZ_p& a, const ZZ_p& b); // x = a * b
 
-void init(const ZZ_p& qnr_square_){
-    ZZ_p2::_qnr_square = qnr_square_;
+void init(const ZZ_p2& cnr_){
+    ZZ_p2::_cnr = cnr_;
     ZZ_p2::_zero = ZZ_p::zero();
     ZZ_p2::_unity = ZZ_p::unity();
 }
 // ZZ_p::init(p) sets the modulus to p (p > 1)
 
-const ZZ_p& qnrSquareP(){
-    return ZZ_p2::_qnr_square;
+const ZZ_p2& cnr(){
+    return ZZ_p2::_cnr;
 }
 // ZZ_p::modulus() yields read-only reference to the current
 // modulus

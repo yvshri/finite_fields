@@ -88,6 +88,10 @@ void ZZ_p::getModulus(mpz_t mod_){
     mpz_set(mod_, _mod);
 }
 
+const ZZ_p& ZZ_p::qnr(){
+    return ZZ_p::_qnr;
+}
+
 const ZZ_p& ZZ_p::zero(){
     return ZZ_p::_zero;
 }

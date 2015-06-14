@@ -52,13 +52,99 @@ ZZ_p6& operator+=(ZZ_p6& x_, const ZZ_p6& b_){
 }
 // friend void add(ZZ_p2& x, const ZZ_p2& a, const ZZ_p2& b); // x = a + b
 
-
+//Karatsuba multiplication
 ZZ_p6 operator*(const ZZ_p6& a_, const ZZ_p6& b_){
-    ZZ_p6 prod;
-    prod._a_1 = ((a_._a_1) * (b_._a_1)) + ((ZZ_p6::cnrCubeP2()) * ((a_._a_2)*(b_._a_3))*((a_._a_3)*(b_._a_2)));
-    prod._a_2 = ((a_._a_1) * (b_._a_2)) + ((a_._a_2) * (b_._a_1)) + ((ZZ_p6::cnrCubeP2()) * (a_._a_3) * (b_._a_3));
-    prod._a_3 = ((a_._a_2) * (b_._a_2)) + ((a_._a_1) * (b_._a_3)) + ((a_._a_3) * (b_._a_1));
-    return prod;
+    ZZ_p2 t[3], v[3], temp_prod[3];
+    // prod._a_1 = ((a_._a_1) * (b_._a_1)) + ((ZZ_p2::cnr() * ZZ_p2::cnr() * ZZ_p2::cnr()) * ((a_._a_2)*(b_._a_3))*((a_._a_3)*(b_._a_2)));
+    // prod._a_2 = ((a_._a_1) * (b_._a_2)) + ((a_._a_2) * (b_._a_1)) + ((ZZ_p6::cnrCubeP2()) * (a_._a_3) * (b_._a_3));
+    // prod._a_3 = ((a_._a_2) * (b_._a_2)) + ((a_._a_1) * (b_._a_3)) + ((a_._a_3) * (b_._a_1));
+
+    //1
+    v[0] = a_.getFirst() * b_.getFirst();
+    
+    //2
+    v[1] = a_.getSecond() * b_.getSecond();
+
+    //3
+    v[2] = a_.getThird() * b_.getThird();
+
+    //4
+    t[0].setFirst(a_.getSecond().getFirst() + a_.getThird().getFirst());
+    t[0].setSecond(a_.getSecond().getSecond() + a_.getThird().getSecond());
+
+    //5
+    t[1].setFirst(b_.getSecond().getFirst() + b_.getThird().getFirst());
+    t[1].setSecond(b_.getSecond().getSecond() + b_.getThird().getSecond());
+
+    //6
+    t[2] = t[0] * t[1];
+
+    //7
+    t[0].setFirst(v[0].getFirst() + v[1].getFirst());
+    t[0].setSecond(v[0].getSecond() - v[1].getSecond());
+
+    //8
+    t[2].setFirst(t[2].getFirst() - t[0].getFirst());
+    t[2].setSecond(t[2].getSecond() - t[0].getSecond());
+
+    //9
+    t[2].setSecond(t[2].getSecond() + t[2].getSecond());
+
+    //10
+    temp_prod[0].setFirst(v[0].getFirst() - t[2].getSecond());
+    temp_prod[0].setSecond(v[0].getSecond() + t[2].getFirst());
+
+    //11
+    t[0].setFirst(a_.getFirst().getFirst() + a_.getSecond().getFirst());
+    t[0].setSecond(a_.getFirst().getSecond() + a_.getSecond().getSecond());
+
+    //12
+    t[1].setFirst(b_.getFirst().getFirst() + b_.getSecond().getFirst());
+    t[1].setSecond(b_.getFirst().getSecond() + b_.getSecond().getSecond());
+
+    //13
+    t[2] = t[0] * t[1];
+
+    //14
+    t[0].setFirst(v[0].getFirst() + v[1].getFirst());
+    t[0].setSecond(v[0].getSecond() - v[1].getSecond());
+
+    //15
+    t[1].setFirst(v[2].getSecond() + v[2].getSecond());
+
+    //16
+    t[0].setFirst(t[0].getFirst() + t[1].getFirst());
+    t[0].setSecond(v[2].getFirst() - t[0].getSecond());
+
+    //17
+    temp_prod[1].setFirst(t[2].getFirst() - t[0].getFirst());
+    temp_prod[1].setSecond(t[2].getSecond() + t[0].getSecond());
+
+    //18
+    t[0].setFirst(a_.getFirst().getFirst() + a_.getThird().getFirst());
+    t[0].setSecond(a_.getFirst().getSecond() + a_.getThird().getSecond());
+
+    //19
+    t[1].setFirst(b_.getFirst().getFirst() + b_.getThird().getFirst());
+    t[1].setSecond(b_.getFirst().getSecond() + b_.getThird().getSecond());
+
+    //20
+    t[2] = t[0] * t[1];
+
+    //21
+    t[0].setFirst(v[0].getFirst() + v[2].getFirst());
+    t[0].setSecond(v[0].getSecond() + v[2].getSecond());
+
+    //22
+    t[0].setFirst(v[1].getFirst() - t[0].getFirst());
+    t[0].setSecond(v[1].getSecond() - t[0].getSecond());
+
+    //23
+    temp_prod[2].setFirst(t[2].getFirst() + t[0].getFirst());
+    temp_prod[2].setSecond(t[2].getSecond() + t[0].getSecond());
+
+    ZZ_p6 prod(temp_prod[0], temp_prod[1], temp_prod[2]);
+    return prod;    
 }
 
 ZZ_p6& operator*=(ZZ_p6& x_, const ZZ_p6& b_){
@@ -73,6 +159,7 @@ ZZ_p6 operator*(const ZZ_p6& a_, const ZZ_p2& b_){
     prod._a_1 = (a_._a_1) * (b_);
     prod._a_2 = (a_._a_2) * (b_);
     prod._a_3 = (a_._a_3) * (b_);
+
     return prod;
 }
 
@@ -86,15 +173,15 @@ ZZ_p6& operator*=(ZZ_p6& x_, const ZZ_p2& b_){
 // friend ZZ_p2& operator*=(ZZ_p2& x, long b);
 // friend void mul(ZZ_p2& x, const ZZ_p2& a, const ZZ_p2& b); // x = a * b
 
-void init(const ZZ_p2& cnr_cube_){
-    ZZ_p6::_cnr_cube = cnr_cube_;
+void init(const ZZ_p6& qnr_){
+    ZZ_p6::_qnr = qnr_;
     ZZ_p6::_zero = ZZ_p2::zero();
     ZZ_p6::_unity = ZZ_p2::unity();
 }
 // ZZ_p2::init(p) sets the modulus to p (p > 1)
 
-const ZZ_p2& cnrCubeP2(){
-    return ZZ_p6::_cnr_cube;
+const ZZ_p6& qnr(){
+    return ZZ_p6::_qnr;
 }
 // ZZ_p2::modulus() yields read-only reference to the current
 // modulus

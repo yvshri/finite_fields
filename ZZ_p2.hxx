@@ -15,9 +15,9 @@ The class ZZ_p2 is used to represent quadratic extension field. d
 class ZZ_p2
 {
 public:
-	ZZ_p2(ZZ_p a_1_ = ZZ_p::zero(), ZZ_p a_2_ = ZZ_p::zero());
-	ZZ_p2(const ZZ_p2& a);
-	explicit ZZ_p2(const ZZ_p& a);
+	ZZ_p2(ZZ_p = ZZ_p::zero(), ZZ_p = ZZ_p::zero());
+	ZZ_p2(const ZZ_p2&);
+	explicit ZZ_p2(const ZZ_p&);
 	// explicit ZZ_p2(const mpz_t& a);
 	// explicit ZZ_p2(long a);
 	~ZZ_p2();
@@ -40,17 +40,17 @@ public:
     friend ZZ_p2& operator*=(ZZ_p2& x, const ZZ_p& b);
 
 
-	static void init(const ZZ_p& qnr_square);
+	static void init(const ZZ_p&);
     // ZZ_p::init(p) sets the modulus to p (p > 1)
 
-    static const ZZ_p qnrSquareP();
+    static const ZZ_p2& cnr();
     static const ZZ_p2& zero();
     // ZZ_p::zero() yields a read-only reference to zero
   
     static const ZZ_p2& unity();
     // ZZ_p::zero() yields a read-only reference to unity
-    friend ostream& operator<<(ostream& s, const ZZ_p2& x);
-    // friend istream& operator>>(istream& s, ZZ_p& x);
+    friend ostream& operator<<(ostream&, const ZZ_p2&);
+    // friend istream& operator>>(istream&, ZZ_p&);
 
     ZZ_p getFirst() const;
     ZZ_p getSecond() const;
@@ -61,7 +61,7 @@ public:
     friend void setToUnity(ZZ_p2&);
     friend void setToZero(ZZ_p2&);
 
-    static ZZ_p _qnr_square;
+    static ZZ_p2 _cnr;
     static ZZ_p2 _zero, _unity;
 private:
 	ZZ_p _a_1, _a_2;
