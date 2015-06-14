@@ -10,7 +10,8 @@ public:
 
 	PointZZ_p2& operator=(const PointZZ_p2&);
 
-	friend void doublePointAndCalcTangent(ZZ_p6&, PointZZ_p&, const PointZZ_p&, const PointZZ_p2&);
+	friend void doublePointAndCalcTangent(ZZ_p12&, PointZZ_p&, const PointZZ_p&, const PointZZ_p2&);
+	friend void pointAdditionAndLineThroughPoints(ZZ_p12&, PointZZ_p&, const PointZZ_p&, const PointZZ_p&, const PointZZ_p2&);
 
 	//Getter Setter
 	ZZ_p2 getX() const;

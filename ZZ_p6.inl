@@ -52,6 +52,18 @@ ZZ_p6& operator+=(ZZ_p6& x_, const ZZ_p6& b_){
 }
 // friend void add(ZZ_p2& x, const ZZ_p2& a, const ZZ_p2& b); // x = a + b
 
+ZZ_p6 operator-(const ZZ_p6& a_, const ZZ_p6& b_){
+    ZZ_p6 sum;
+    sum._a_1 = a_._a_1 - b_._a_1;
+    sum._a_2 = a_._a_2 - b_._a_2;
+    sum._a_3 = a_._a_3 - b_._a_3;
+    return sum;
+}
+ZZ_p6& operator-=(ZZ_p6& x_, const ZZ_p6& b_){
+    x_ = x_ - b_;
+    return x_;
+}
+
 //Karatsuba multiplication
 ZZ_p6 operator*(const ZZ_p6& a_, const ZZ_p6& b_){
     ZZ_p2 t[3], v[3], temp_prod[3];

@@ -31,7 +31,8 @@ public:
 	friend ZZ_p2 operator+(const ZZ_p2& a, const ZZ_p2& b);
     friend ZZ_p2& operator+=(ZZ_p2& x, const ZZ_p2& b);
     // friend void add(ZZ_p& x, const ZZ_p& a, const ZZ_p& b); // x = a + b
-
+    friend ZZ_p2 operator-(const ZZ_p2& a, const ZZ_p2& b);
+    friend ZZ_p2& operator-=(ZZ_p2& x, const ZZ_p2& b);
    
    	friend ZZ_p2 operator*(const ZZ_p2& a, const ZZ_p2& b);
     friend ZZ_p2& operator*=(ZZ_p2& x, const ZZ_p2& b);

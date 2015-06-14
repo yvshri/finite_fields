@@ -45,11 +45,27 @@ ZZ_p12& operator+=(ZZ_p12& x_, const ZZ_p12& b_){
 }
 // friend void add(ZZ_p6& x, const ZZ_p6& a, const ZZ_p6& b); // x = a + b
 
+ZZ_p12 operator-(const ZZ_p12& a_, const ZZ_p12& b_){
+    ZZ_p12 sum;
+    sum._a_1 = a_._a_1 - b_._a_1;
+    sum._a_2 = a_._a_2 - b_._a_2;
+    return sum;  
+}
+ZZ_p12& operator-=(ZZ_p12& x_, const ZZ_p12& b_){
+    x_ = x_ - b_;
+    return x_;
+}
 
 ZZ_p12 operator*(const ZZ_p12& a_, const ZZ_p12& b_){
     ZZ_p12 prod;
-    prod._a_1 = (a_._a_1) * (b_._a_1) + ZZ_p6::qnr() * ZZ_p6::qnr() * (a_._a_2) * (b_._a_2);
-    prod._a_2 = (a_._a_1) * (b_._a_2) + (a_._a_2) * (b_._a_1);
+    // prod._a_1 = (a_._a_1) * (b_._a_1) + ZZ_p6::qnr() * ZZ_p6::qnr() * (a_._a_2) * (b_._a_2);
+    // prod._a_2 = (a_._a_1) * (b_._a_2) + (a_._a_2) * (b_._a_1);
+    ZZ_p6 t[3];
+    t[0] = a_.getFirst() * b_.getFirst();
+    t[1] = a_.getSecond() * b_.getSecond();
+    t[2] = (a_.getFirst() + a_.getSecond()) * (a_.getFirst() + a_.getSecond()) - t[0] - t[1];
+    prod.setFirst(t[0] + ZZ_p6::qnr()*ZZ_p6::qnr()*t[1]);
+    prod.setSecond(t[2]);
     return prod;
 }
 

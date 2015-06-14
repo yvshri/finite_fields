@@ -183,7 +183,7 @@ public:
     friend void setToUnity(ZZ_p& x); // x = 1
     friend void swap(ZZ_p& x, ZZ_p& y);
     // swap x and y (done by "pointer swapping", if possible).
-
+    std::vector<bool> decToBin();
     void swap(ZZ_p& x);
     // swap member function
 

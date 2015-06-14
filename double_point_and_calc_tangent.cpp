@@ -1,10 +1,12 @@
 #include "point_ZZ_p2.hxx"
 #include "point_ZZ_p.hxx"
 
-void doublePointAndCalcTangent(ZZ_p6& l_tangent_, PointZZ_p& output_, const PointZZ_p& input_, const PointZZ_p2& q_){
+PointZZ_p doublePointAndCalcTangent(ZZ_p12& l_tangent_, const PointZZ_p& input_, const PointZZ_p2& q_){
+	PointZZ_p output;
 	ZZ_p x_out, y_out, z_out, x_in, y_in, z_in, t[7];
 	const ZZ_p two(ZZ_p::unity() + ZZ_p::unity());
 	ZZ_p2 l[3];
+	ZZ_p6 a[2];
 	x_in = input_.getXJacobian();
 	y_in = input_.getYJacobian();
 	z_in = input_.getZJacobian();
@@ -72,11 +74,14 @@ void doublePointAndCalcTangent(ZZ_p6& l_tangent_, PointZZ_p& output_, const Poin
 	l[2].setFirst(t[0] * q_.getY().getFirst());
 	l[2].setSecond(t[0] * q_.getY().getSecond());
 
-	l_tangent_.setFirst(l[0]);
-	l_tangent_.setSecond(l[1]);
-	l_tangent_.setThird(l[2]);
+	a[0].setFirst(l[0]);
+	a[0].setThird(l[1]);
+	a[1].setFirst(l[2]);
 
-	output_.setXJacobian(x_out);
-	output_.setYJacobian(x_out);
-	output_.setZJacobian(z_out);
+	l_tangent_.setFirst(a[0]);
+	l_tangent_.setSecond(a[1]);
+	output.setXJacobian(x_out);
+	output.setYJacobian(x_out);
+	output.setZJacobian(z_out);
+	return output;
 }
