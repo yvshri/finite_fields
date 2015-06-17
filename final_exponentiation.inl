@@ -1,0 +1,34 @@
+void finalExponentiation(ZZ_p12& f){
+	mpz_t prime, p6, p2, p3, temp_res, z, nine, four;
+	mpz_inits(prime, p6, p2, p3, temp_res, z, nine, four, NULL);
+	mpz_set_ui(nine, 9);
+	mpz_set_ui(four, 4);
+	ZZ_p::getModulus(prime);
+	mpz_pow_ui(p6, prime, 6);
+	mpz_pow_ui(p2, prime, 2);
+	mpz_pow_ui(p3, prime, 3);
+	mpz_sub_ui(temp_res, p6, 1);
+	power(f, f, temp_res);
+	mpz_add_ui(temp_res, p2, 1);
+	ZZ_p::getZ(z);
+	mpz_mul_ui(temp_res, z, 6);
+	mpz_add_ui(temp_res, temp_res, 5);
+	mpz_mul_si(temp_res, temp_res, -1);
+	ZZ_p12 a, b, fp, fp2, fp3, temp_f1, temp_f2, temp_f3;
+	power(a, f, temp_res);
+	power(b, a, prime);
+	b = a * b;
+	power(fp, f, prime);
+	power(fp2, f, p2);
+	power(fp3, f, p3);
+	temp_f1 = b * fp * fp * fp2;
+	mpz_pow_ui(temp_res, z, 2);
+	mpz_mul_ui(temp_res, temp_res, 6);
+	mpz_add_ui(temp_res, temp_res, 1);
+	power(temp_f1, temp_f1, temp_res);
+	temp_f2 = fp * f;
+	power(temp_f2, temp_f2, nine);
+	power(temp_f3, f, four);
+	f = fp3 * temp_f1 * b * temp_f2 * a * temp_f3;
+	mpz_clears(prime, p6, p2, p3, temp_res, z, nine, four, NULL);
+}

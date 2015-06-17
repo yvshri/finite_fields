@@ -93,7 +93,29 @@ ZZ_p12& operator*=(ZZ_p12& x_, const ZZ_p6& b_){
 // friend ZZ_p6& operator*=(ZZ_p6& x, long b);
 // friend void mul(ZZ_p6& x, const ZZ_p6& a, const ZZ_p6& b); // x = a * b
 
-void init(){
+//Implementing montogomery ladder
+void power(ZZ_p12& output_, const ZZ_p12& input_, mpz_t exp_){
+    ZZ_p12 f1, f2;
+    std::vector<bool> exp_bin;
+    f1 = input_; 
+    f2 = input_ * input_;
+    exp_bin = decToBin(exp_);
+    int size, i;
+    size = exp_bin.size();
+    for(i = size - 2; i >= 0; i--){
+        if(exp_bin.at(i) == 0){
+            f2 = f1 * f2;
+            f1 = f1 * f1;
+        }else{
+            f1 = f1 * f2;
+            f2 = f2 * f2;
+        }
+    }
+    output_ = f1;
+}
+
+
+void ZZ_p12::init(){
     ZZ_p12::_zero = ZZ_p6::zero();
     ZZ_p12::_unity = ZZ_p6::unity();
 }

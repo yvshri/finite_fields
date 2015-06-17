@@ -40,7 +40,8 @@ public:
 	friend ZZ_p12 operator*(const ZZ_p12& a, const ZZ_p6& b);
     friend ZZ_p12& operator*=(ZZ_p12& x, const ZZ_p6& b);
 
-
+    friend void power(ZZ_p12&, const ZZ_p12&, mpz_t);
+    friend std::vector<bool> decToBin(mpz_t);
 	static void init();
     // ZZ_p6::init(p) sets the modulus to p (p > 1)
 
@@ -66,5 +67,6 @@ private:
 	ZZ_p6 _a_1, _a_2;
 };
 
+#include "dec_to_bin.inl"
 #include "ZZ_p12.inl" // Methods are implemented here
 #endif // __ZZ_P12_HXX

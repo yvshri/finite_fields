@@ -41,7 +41,7 @@ public:
     friend ZZ_p2& operator*=(ZZ_p2& x, const ZZ_p& b);
 
 
-	static void init(const ZZ_p&);
+	static void init(const ZZ_p2&);
     // ZZ_p::init(p) sets the modulus to p (p > 1)
 
     static const ZZ_p2& cnr();

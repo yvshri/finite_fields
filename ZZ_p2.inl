@@ -86,14 +86,14 @@ ZZ_p2& operator*=(ZZ_p2& x_, const ZZ_p& b_){
 // friend ZZ_p& operator*=(ZZ_p& x, long b);
 // friend void mul(ZZ_p& x, const ZZ_p& a, const ZZ_p& b); // x = a * b
 
-void init(const ZZ_p2& cnr_){
+void ZZ_p2::init(const ZZ_p2& cnr_){
     ZZ_p2::_cnr = cnr_;
     ZZ_p2::_zero = ZZ_p::zero();
     ZZ_p2::_unity = ZZ_p::unity();
 }
 // ZZ_p::init(p) sets the modulus to p (p > 1)
 
-const ZZ_p2& cnr(){
+const ZZ_p2& ZZ_p2::cnr(){
     return ZZ_p2::_cnr;
 }
 // ZZ_p::modulus() yields read-only reference to the current
