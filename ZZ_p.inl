@@ -1,8 +1,4 @@
 
-mpz_t ZZ_p::_mod;
-ZZ_p ZZ_p::_zero;
-ZZ_p ZZ_p::_unity;
-
 ZZ_p::ZZ_p(){
     mpz_init(_num);
 }
@@ -58,10 +54,8 @@ ZZ_p& ZZ_p::operator=(mpz_t num_){
 
 void ZZ_p::initConstants(){
     mpz_t zero, unity;
-    mpz_init_set_ui(unity, 1);
-    mpz_init_set_ui(zero, 0);
-    ZZ_p::_unity.setNum(unity);
-    ZZ_p::_zero.setNum(zero);
+    mpz_init_set_ui(ZZ_p::_unity._num, 1);
+    mpz_init_set_ui(ZZ_p::_zero._num, 0);
 }
 
 void ZZ_p::init(mpz_t p_){
@@ -69,6 +63,7 @@ void ZZ_p::init(mpz_t p_){
         cout << "prime should be greater than 1" << endl;
         //throw exception
     }else{
+        cout << "Base Prime = " << p_ << endl;
         mpz_init_set(ZZ_p::_mod, p_);
     }
     initConstants();
@@ -79,6 +74,7 @@ void ZZ_p::init(const long p_){
         cout << "prime should be greater than 1" << endl;
         //throw exception
     }else{
+        cout << "Base Prime = " << p_ << endl;
         mpz_init_set_ui(ZZ_p::_mod, p_);
     }
     initConstants();
@@ -86,6 +82,10 @@ void ZZ_p::init(const long p_){
 
 void ZZ_p::getModulus(mpz_t mod_){
     mpz_set(mod_, _mod);
+}
+
+void ZZ_p::getZ(mpz_t z_){
+    mpz_set(z_, z);
 }
 
 const ZZ_p& ZZ_p::qnr(){
@@ -382,6 +382,37 @@ ostream& operator<<(ostream& s_, const ZZ_p& a_){
 //     return s_;
 // }
 
+
+/**************************************************************************\
+
+                                Exponentiation
+
+\**************************************************************************/
+
+
+void power(ZZ_p& x_, const ZZ_p& a_, mpz_t exp_){
+    mpz_t rop, mod, num;
+    mpz_inits(rop, mod, num, NULL);
+    ZZ_p::getModulus(mod);
+    a_.getNum(num);
+    cout << "num " << num << " mod " << mod << " exp " << exp_ << endl;
+    mpz_powm_sec(rop, num, exp_, mod);
+    x_.setNum(rop);
+    mpz_clears(rop, mod, num, NULL);
+}
+
+ZZ_p power(const ZZ_p& a, mpz_t exp_){
+    ZZ_p x;
+    mpz_t rop, mod, num;
+    mpz_inits(rop, mod, num, NULL);
+    ZZ_p::getModulus(mod);
+    a.getNum(num);
+    mpz_powm_sec(rop, num, exp_, mod);
+    x.setNum(rop);
+    mpz_clears(rop, mod, num, NULL);
+    return x;
+}
+
 /**************************************************************************\
 
                      Miscellany
@@ -423,7 +454,11 @@ void ZZ_p::setNum(mpz_t t_){
     mpz_t rem, mod;
     mpz_inits(rem, mod, NULL);
     ZZ_p::getModulus(mod);
-    mpz_mod(rem, t_, mod);
+    if(mpz_cmp_ui(mod, 0) == 0){
+        // cout << "Mod zero error";
+    }else{
+        mpz_mod(rem, t_, mod);
+    }
     mpz_set(_num, rem);
     mpz_clears(rem, mod, NULL);
 }

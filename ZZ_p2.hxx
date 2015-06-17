@@ -31,7 +31,8 @@ public:
 	friend ZZ_p2 operator+(const ZZ_p2& a, const ZZ_p2& b);
     friend ZZ_p2& operator+=(ZZ_p2& x, const ZZ_p2& b);
     // friend void add(ZZ_p& x, const ZZ_p& a, const ZZ_p& b); // x = a + b
-
+    friend ZZ_p2 operator-(const ZZ_p2& a, const ZZ_p2& b);
+    friend ZZ_p2& operator-=(ZZ_p2& x, const ZZ_p2& b);
    
    	friend ZZ_p2 operator*(const ZZ_p2& a, const ZZ_p2& b);
     friend ZZ_p2& operator*=(ZZ_p2& x, const ZZ_p2& b);
@@ -40,7 +41,7 @@ public:
     friend ZZ_p2& operator*=(ZZ_p2& x, const ZZ_p& b);
 
 
-	static void init(const ZZ_p&);
+	static void init(const ZZ_p2&);
     // ZZ_p::init(p) sets the modulus to p (p > 1)
 
     static const ZZ_p2& cnr();

@@ -45,11 +45,27 @@ ZZ_p12& operator+=(ZZ_p12& x_, const ZZ_p12& b_){
 }
 // friend void add(ZZ_p6& x, const ZZ_p6& a, const ZZ_p6& b); // x = a + b
 
+ZZ_p12 operator-(const ZZ_p12& a_, const ZZ_p12& b_){
+    ZZ_p12 sum;
+    sum._a_1 = a_._a_1 - b_._a_1;
+    sum._a_2 = a_._a_2 - b_._a_2;
+    return sum;  
+}
+ZZ_p12& operator-=(ZZ_p12& x_, const ZZ_p12& b_){
+    x_ = x_ - b_;
+    return x_;
+}
 
 ZZ_p12 operator*(const ZZ_p12& a_, const ZZ_p12& b_){
     ZZ_p12 prod;
-    prod._a_1 = (a_._a_1) * (b_._a_1) + ZZ_p6::qnr() * ZZ_p6::qnr() * (a_._a_2) * (b_._a_2);
-    prod._a_2 = (a_._a_1) * (b_._a_2) + (a_._a_2) * (b_._a_1);
+    // prod._a_1 = (a_._a_1) * (b_._a_1) + ZZ_p6::qnr() * ZZ_p6::qnr() * (a_._a_2) * (b_._a_2);
+    // prod._a_2 = (a_._a_1) * (b_._a_2) + (a_._a_2) * (b_._a_1);
+    ZZ_p6 t[3];
+    t[0] = a_.getFirst() * b_.getFirst();
+    t[1] = a_.getSecond() * b_.getSecond();
+    t[2] = (a_.getFirst() + a_.getSecond()) * (a_.getFirst() + a_.getSecond()) - t[0] - t[1];
+    prod.setFirst(t[0] + ZZ_p6::qnr()*ZZ_p6::qnr()*t[1]);
+    prod.setSecond(t[2]);
     return prod;
 }
 
@@ -77,7 +93,29 @@ ZZ_p12& operator*=(ZZ_p12& x_, const ZZ_p6& b_){
 // friend ZZ_p6& operator*=(ZZ_p6& x, long b);
 // friend void mul(ZZ_p6& x, const ZZ_p6& a, const ZZ_p6& b); // x = a * b
 
-void init(){
+//Implementing montogomery ladder
+void power(ZZ_p12& output_, const ZZ_p12& input_, mpz_t exp_){
+    ZZ_p12 f1, f2;
+    std::vector<bool> exp_bin;
+    f1 = input_; 
+    f2 = input_ * input_;
+    exp_bin = decToBin(exp_);
+    int size, i;
+    size = exp_bin.size();
+    for(i = size - 2; i >= 0; i--){
+        if(exp_bin.at(i) == 0){
+            f2 = f1 * f2;
+            f1 = f1 * f1;
+        }else{
+            f1 = f1 * f2;
+            f2 = f2 * f2;
+        }
+    }
+    output_ = f1;
+}
+
+
+void ZZ_p12::init(){
     ZZ_p12::_zero = ZZ_p6::zero();
     ZZ_p12::_unity = ZZ_p6::unity();
 }

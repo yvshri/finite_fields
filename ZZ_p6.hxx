@@ -31,8 +31,10 @@ public:
 	friend ZZ_p6 operator+(const ZZ_p6& a, const ZZ_p6& b);
     friend ZZ_p6& operator+=(ZZ_p6& x, const ZZ_p6& b);
     // friend void add(ZZ_p& x, const ZZ_p& a, const ZZ_p& b); // x = a + b
-
-   
+    
+    friend ZZ_p6 operator-(const ZZ_p6&, const ZZ_p6&);
+    friend ZZ_p6& operator-=(ZZ_p6&, const ZZ_p6&);
+    
    	friend ZZ_p6 operator*(const ZZ_p6& a, const ZZ_p6& b);
     friend ZZ_p6& operator*=(ZZ_p6& x, const ZZ_p6& b);
     // friend void mul(ZZ_p& x, const ZZ_p& a, const ZZ_p& b); // x = a * b
@@ -40,10 +42,10 @@ public:
     friend ZZ_p6& operator*=(ZZ_p6& x, const ZZ_p2& b);
 
 
-	static void init(const ZZ_p2&);
+	static void init(const ZZ_p6&);
     // ZZ_p::init(p) sets the modulus to p (p > 1)
 
-    static const ZZ_p2 qnr();
+    static const ZZ_p6& qnr();
     static const ZZ_p6& zero();
     // ZZ_p::zero() yields a read-only reference to zero
   

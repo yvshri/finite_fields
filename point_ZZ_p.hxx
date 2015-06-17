@@ -11,8 +11,8 @@ public:
 	PointZZ_p& operator=(const PointZZ_p&);
 
 
-	friend void doublePointAndCalcTangent(ZZ_p6&, PointZZ_p&, const PointZZ_p&, const PointZZ_p2&);
-
+	friend PointZZ_p doublePointAndCalcTangent(ZZ_p12&, const PointZZ_p&, const PointZZ_p2&);
+	friend PointZZ_p pointAdditionAndLineThroughPoints(ZZ_p12&, const PointZZ_p&, const PointZZ_p&, const PointZZ_p2&);
 
 	//Getter Setter
 	ZZ_p getXAffine() const;

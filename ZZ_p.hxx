@@ -25,6 +25,7 @@ for saving and restoring a modulus (see classes ZZ_pPush and ZZ_pContext below).
 #include <cstdio>
 #include <algorithm>
 #include <gmp.h>
+#include <assert.h>
 #ifndef __ZZ_P_HXX // Control inclusion of header files
 #define __ZZ_P_HXX
 using namespace std;
@@ -54,6 +55,8 @@ public:
     static void getModulus(mpz_t);
     // ZZ_p::modulus() yields read-only reference to the current
     // modulus
+
+    static void getZ(mpz_t);
 
     static const ZZ_p& qnr();
     //Returns a qnr in this field
@@ -176,6 +179,19 @@ public:
 
     /**************************************************************************\
 
+                                Exponentiation
+
+    \**************************************************************************/
+
+
+    friend void power(ZZ_p& x, const ZZ_p& a, mpz_t e); // x = a^e (e may be negative)
+    friend ZZ_p power(const ZZ_p& a, mpz_t e); // functional variants
+
+    // void power(ZZ_p& x, const ZZ_p& a, long e); 
+    // ZZ_p power(ZZ_p& x, const ZZ_p& a, long e); 
+
+    /**************************************************************************\
+
                                    Miscellany
 
     \**************************************************************************/
@@ -183,7 +199,6 @@ public:
     friend void setToUnity(ZZ_p& x); // x = 1
     friend void swap(ZZ_p& x, ZZ_p& y);
     // swap x and y (done by "pointer swapping", if possible).
-
     void swap(ZZ_p& x);
     // swap member function
 
@@ -191,7 +206,7 @@ public:
     void getNum(mpz_t) const;
     void setNum(mpz_t);
     static ZZ_p _qnr;
-    static mpz_t _mod;
+    static mpz_t _mod, z;
     static ZZ_p _zero, _unity;
 private:
     mpz_t _num; 
@@ -232,19 +247,6 @@ private:
 *************************/
 
 
-/**************************************************************************\
-
-                            Exponentiation
-
-\**************************************************************************/
-/*TODO*/
-
-
-// void power(ZZ_p& x, const ZZ_p& a, mpz_t e); // x = a^e (e may be negative)
-// ZZ_p power(const ZZ_p& a, mpz_t e); // functional variants
-
-// void power(ZZ_p& x, const ZZ_p& a, long e); 
-// ZZ_p power(ZZ_p& x, const ZZ_p& a, long e); 
 
 
 
