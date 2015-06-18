@@ -85,7 +85,15 @@ void ZZ_p::getModulus(mpz_t mod_){
 }
 
 void ZZ_p::getZ(mpz_t z_){
-    mpz_set(z_, z);
+    mpz_set(z_, _z);
+}
+
+void ZZ_p::getR(mpz_t r_){
+    mpz_set(r_, _r);
+}
+
+void ZZ_p::getT(mpz_t t_){
+    mpz_set(t_, _t);
 }
 
 const ZZ_p& ZZ_p::qnr(){
@@ -192,6 +200,7 @@ ZZ_p operator-(const ZZ_p& a_){
     mpz_neg(neg_num, result_a);
     negative.setNum(neg_num);
     mpz_clear(neg_num);
+    return negative;
 } 
 
 ZZ_p& operator+=(ZZ_p& x_, const ZZ_p& b_){

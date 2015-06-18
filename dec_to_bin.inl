@@ -2,7 +2,6 @@ std::vector<bool> decToBin(mpz_t num_){
     mpz_t num, quo, rem;
     mpz_inits(num, quo, rem, NULL);
     mpz_set(num, num_);
-    cin >> num;
     std::vector<bool> num_bin;
     num_bin.clear();
     while(mpz_cmp_ui(num, 0) != 0){

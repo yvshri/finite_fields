@@ -63,7 +63,7 @@ ZZ_p12 operator*(const ZZ_p12& a_, const ZZ_p12& b_){
     ZZ_p6 t[3];
     t[0] = a_.getFirst() * b_.getFirst();
     t[1] = a_.getSecond() * b_.getSecond();
-    t[2] = (a_.getFirst() + a_.getSecond()) * (a_.getFirst() + a_.getSecond()) - t[0] - t[1];
+    t[2] = (a_.getFirst() + a_.getSecond()) * (b_.getFirst() + b_.getSecond()) - t[0] - t[1];
     prod.setFirst(t[0] + ZZ_p6::qnr()*ZZ_p6::qnr()*t[1]);
     prod.setSecond(t[2]);
     return prod;

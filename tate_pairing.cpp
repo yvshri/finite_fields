@@ -7,7 +7,9 @@
 #include "miller_function.inl"
 #include "final_exponentiation.inl"
 #include "init.inl"
-mpz_t ZZ_p::z;
+mpz_t ZZ_p::_z;
+mpz_t ZZ_p::_r;
+mpz_t ZZ_p::_t;
 mpz_t ZZ_p::_mod;
 ZZ_p ZZ_p::_zero;
 ZZ_p ZZ_p::_unity;
@@ -24,8 +26,6 @@ ZZ_p6 ZZ_p6::_unity;
 ZZ_p12 ZZ_p12::_zero;
 ZZ_p12 ZZ_p12::_unity;
 
-
-
 int main(){
 	init();
 	cout << ZZ_p::qnr() << endl;
@@ -34,5 +34,11 @@ int main(){
 	cout << neg << endl;
 	cout << ZZ_p2::cnr() << endl;
 	cout << ZZ_p6::qnr() << endl;
+	ZZ_p12 alpha, beta;
+	mpz_t four;
+	mpz_init_set_ui(four, 4);
+	beta = (ZZ_p12::unity() + ZZ_p12::unity()) * (ZZ_p12::unity() + ZZ_p12::unity());
+	power(alpha, beta, four);
+	cout << alpha<< endl;
 	return 0;
 }

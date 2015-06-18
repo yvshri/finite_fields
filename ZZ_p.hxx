@@ -57,6 +57,8 @@ public:
     // modulus
 
     static void getZ(mpz_t);
+    static void getT(mpz_t);
+    static void getR(mpz_t);
 
     static const ZZ_p& qnr();
     //Returns a qnr in this field
@@ -206,7 +208,7 @@ public:
     void getNum(mpz_t) const;
     void setNum(mpz_t);
     static ZZ_p _qnr;
-    static mpz_t _mod, z;
+    static mpz_t _mod, _z, _r, _t;
     static ZZ_p _zero, _unity;
 private:
     mpz_t _num; 
