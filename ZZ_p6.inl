@@ -66,101 +66,101 @@ ZZ_p6& operator-=(ZZ_p6& x_, const ZZ_p6& b_){
 
 //Karatsuba multiplication
 ZZ_p6 operator*(const ZZ_p6& a_, const ZZ_p6& b_){
-    ZZ_p2 t[3], v[3], temp_prod[3];
-    // prod._a_1 = ((a_._a_1) * (b_._a_1)) + ((ZZ_p2::cnr() * ZZ_p2::cnr() * ZZ_p2::cnr()) * ((a_._a_2)*(b_._a_3))*((a_._a_3)*(b_._a_2)));
-    // prod._a_2 = ((a_._a_1) * (b_._a_2)) + ((a_._a_2) * (b_._a_1)) + ((ZZ_p6::cnrCubeP2()) * (a_._a_3) * (b_._a_3));
-    // prod._a_3 = ((a_._a_2) * (b_._a_2)) + ((a_._a_1) * (b_._a_3)) + ((a_._a_3) * (b_._a_1));
+    ZZ_p6 f[2];
+    f[0] = a_;
+    f[1] = b_;
+    ZZ_p2 t[4], v_bar[3], v[3];
 
     //1
-    v[0] = a_.getFirst() * b_.getFirst();
+    v_bar[0] = f[0].getFirst() * f[1].getFirst();
     
     //2
-    v[1] = a_.getSecond() * b_.getSecond();
+    v_bar[1] = f[0].getSecond() * f[1].getSecond();
 
     //3
-    v[2] = a_.getThird() * b_.getThird();
+    v_bar[2] = f[0].getThird() * f[1].getThird();
 
     //4
-    t[0].setFirst(a_.getSecond().getFirst() + a_.getThird().getFirst());
-    t[0].setSecond(a_.getSecond().getSecond() + a_.getThird().getSecond());
+    t[1].setFirst(f[0].getSecond().getFirst() + f[0].getThird().getFirst());
+    t[1].setSecond(f[0].getSecond().getSecond() + f[0].getThird().getSecond());
 
     //5
-    t[1].setFirst(b_.getSecond().getFirst() + b_.getThird().getFirst());
-    t[1].setSecond(b_.getSecond().getSecond() + b_.getThird().getSecond());
+    t[2].setFirst(f[1].getSecond().getFirst() + f[1].getThird().getFirst());
+    t[2].setSecond(f[1].getSecond().getSecond() + f[1].getThird().getSecond());
 
     //6
-    t[2] = t[0] * t[1];
+    t[3] = t[1] * t[2];
 
     //7
-    t[0].setFirst(v[0].getFirst() + v[1].getFirst());
-    t[0].setSecond(v[0].getSecond() - v[1].getSecond());
+    t[1].setFirst(v_bar[1].getFirst() + v_bar[2].getFirst());
+    t[1].setSecond(v_bar[1].getSecond() - v_bar[2].getSecond());
 
     //8
-    t[2].setFirst(t[2].getFirst() - t[0].getFirst());
-    t[2].setSecond(t[2].getSecond() - t[0].getSecond());
+    t[3].setFirst(t[3].getFirst() - t[1].getFirst());
+    t[3].setSecond(t[3].getSecond() - t[1].getSecond());
 
     //9
-    t[2].setSecond(t[2].getSecond() + t[2].getSecond());
+    t[3].setSecond(t[3].getSecond() + t[3].getSecond());
 
     //10
-    temp_prod[0].setFirst(v[0].getFirst() - t[2].getSecond());
-    temp_prod[0].setSecond(v[0].getSecond() + t[2].getFirst());
+    v[0].setFirst(v_bar[0].getFirst() - t[3].getSecond());
+    v[0].setSecond(v_bar[0].getSecond() + t[3].getFirst());
 
     //11
-    t[0].setFirst(a_.getFirst().getFirst() + a_.getSecond().getFirst());
-    t[0].setSecond(a_.getFirst().getSecond() + a_.getSecond().getSecond());
+    t[1].setFirst(f[0].getFirst().getFirst() + f[0].getSecond().getFirst());
+    t[1].setSecond(f[0].getFirst().getSecond() + f[0].getSecond().getSecond());
 
     //12
-    t[1].setFirst(b_.getFirst().getFirst() + b_.getSecond().getFirst());
-    t[1].setSecond(b_.getFirst().getSecond() + b_.getSecond().getSecond());
+    t[2].setFirst(f[1].getFirst().getFirst() + f[1].getSecond().getFirst());
+    t[2].setSecond(f[1].getFirst().getSecond() + f[1].getSecond().getSecond());
 
     //13
-    t[2] = t[0] * t[1];
+    t[3] = t[1] * t[2];
 
     //14
-    t[0].setFirst(v[0].getFirst() + v[1].getFirst());
-    t[0].setSecond(v[0].getSecond() - v[1].getSecond());
+    t[1].setFirst(v_bar[0].getFirst() + v_bar[1].getFirst());
+    t[1].setSecond(v_bar[0].getSecond() - v_bar[1].getSecond());
 
     //15
-    t[1].setFirst(v[2].getSecond() + v[2].getSecond());
+    t[2].setFirst(v_bar[2].getSecond() + v_bar[2].getSecond());
 
     //16
-    t[0].setFirst(t[0].getFirst() + t[1].getFirst());
-    t[0].setSecond(v[2].getFirst() - t[0].getSecond());
+    t[1].setFirst(t[1].getFirst() + t[2].getFirst());
+    t[1].setSecond(v_bar[2].getFirst() - t[1].getSecond());
 
     //17
-    temp_prod[1].setFirst(t[2].getFirst() - t[0].getFirst());
-    temp_prod[1].setSecond(t[2].getSecond() + t[0].getSecond());
+    v[1].setFirst(t[3].getFirst() - t[1].getFirst());
+    v[1].setSecond(t[3].getSecond() + t[1].getSecond());
 
     //18
-    t[0].setFirst(a_.getFirst().getFirst() + a_.getThird().getFirst());
-    t[0].setSecond(a_.getFirst().getSecond() + a_.getThird().getSecond());
+    t[1].setFirst(f[0].getFirst().getFirst() + f[0].getThird().getFirst());
+    t[1].setSecond(f[0].getFirst().getSecond() + f[0].getThird().getSecond());
 
     //19
-    t[1].setFirst(b_.getFirst().getFirst() + b_.getThird().getFirst());
-    t[1].setSecond(b_.getFirst().getSecond() + b_.getThird().getSecond());
+    t[2].setFirst(f[1].getFirst().getFirst() + f[1].getThird().getFirst());
+    t[2].setSecond(f[1].getFirst().getSecond() + f[1].getThird().getSecond());
 
     //20
-    t[2] = t[0] * t[1];
+    t[3] = t[1] * t[2];
 
     //21
-    t[0].setFirst(v[0].getFirst() + v[2].getFirst());
-    t[0].setSecond(v[0].getSecond() + v[2].getSecond());
+    t[1].setFirst(v_bar[0].getFirst() + v_bar[2].getFirst());
+    t[1].setSecond(v_bar[0].getSecond() + v_bar[2].getSecond());
 
     //22
-    t[0].setFirst(v[1].getFirst() - t[0].getFirst());
-    t[0].setSecond(v[1].getSecond() - t[0].getSecond());
+    t[1].setFirst(v_bar[1].getFirst() - t[1].getFirst());
+    t[1].setSecond(v_bar[1].getSecond() - t[1].getSecond());
 
     //23
-    temp_prod[2].setFirst(t[2].getFirst() + t[0].getFirst());
-    temp_prod[2].setSecond(t[2].getSecond() + t[0].getSecond());
+    v[2].setFirst(t[3].getFirst() + t[1].getFirst());
+    v[2].setSecond(t[3].getSecond() + t[1].getSecond());
 
-    ZZ_p6 prod(temp_prod[0], temp_prod[1], temp_prod[2]);
+    ZZ_p6 prod(v[0], v[1], v[2]);
     return prod;    
 }
 
 ZZ_p6& operator*=(ZZ_p6& x_, const ZZ_p6& b_){
-    // x_._a_1 = (x_._a_1) * (b_._a_1) + ZZ_p6::cnrCubeP2() * (x_._a_2) * (b_._a_2);
+    // x_._f[0]1 = (x_._a_1) * (b_._a_1) + ZZ_p6::cnrCubeP2() * (x_._a_2) * (b_._a_2);
     // x_._a_2 = (x_._a_1) * (b_._a_2) + (x_._a_2) * (b_._a_1);
     x_ = x_ * b_;
     return x_;
@@ -238,7 +238,7 @@ void setToZero(ZZ_p6& x_){
 }
 
 ostream& operator<<(ostream& s_, const ZZ_p6& a_){
-    s_ << "(" << a_._a_1 << "," << a_._a_2 << ")";
+    s_ << "(" << a_._a_1 << "," << a_._a_2  << "," << a_._a_3 << ")";
     return s_; 
 }
 // friend istream& operator>>(istream& s, ZZ_p6& x_){

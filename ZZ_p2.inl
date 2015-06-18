@@ -59,8 +59,12 @@ ZZ_p2& operator-=(ZZ_p2& x_, const ZZ_p2& b_){
 
 ZZ_p2 operator*(const ZZ_p2& a_, const ZZ_p2& b_){
     ZZ_p2 prod;
-    prod._a_1 = (a_._a_1) * (b_._a_1) + ZZ_p::qnr() * ZZ_p::qnr() * (a_._a_2) * (b_._a_2);
-    prod._a_2 = (a_._a_1) * (b_._a_2) + (a_._a_2) * (b_._a_1);
+    ZZ_p t[3];
+    t[0] = a_._a_1 * b_._a_1;
+    t[1] = a_._a_2 * b_._a_2;
+    t[2] = (a_._a_1 + a_._a_2) * (b_._a_1 + b_._a_2) - t[0] - t[1];
+    prod._a_1 = t[0]+ ZZ_p::qnr() * ZZ_p::qnr() * t[1];
+    prod._a_2 = t[2];
     return prod;
 }
 
