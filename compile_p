@@ -1,0 +1,4 @@
+#!/bin/bash
+#Compile ZZ_p
+g++ ZZ_p.hxx -lgmpxx -lgmp
+echo "ZZ_p compiled"

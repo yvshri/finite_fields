@@ -1,0 +1,3 @@
+#!/bin/bash
+#compile
+g++ ZZ_p.hxx ZZ_p2.hxx ZZ_p6.hxx ZZ_p12.hxx tate_pairing.cpp -o tate_pairing -lgmpxx -lgmp
