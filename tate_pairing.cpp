@@ -38,6 +38,7 @@ int main(){
 	mpz_t four;
 	mpz_init_set_ui(four, 4);
 	beta = (ZZ_p12::unity() + ZZ_p12::unity()) * (ZZ_p12::unity() + ZZ_p12::unity());
+        cout << "beta" << beta<< endl;
 	power(alpha, beta, four);
 	cout << alpha<< endl;
 	return 0;

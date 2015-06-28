@@ -102,14 +102,20 @@ void power(ZZ_p12& output_, const ZZ_p12& input_, mpz_t exp_){
     exp_bin = decToBin(exp_);
     int size, i;
     size = exp_bin.size();
+    for(int i = 0; i < size; i++){
+      cout << exp_bin[i] << endl;
+    }
     for(i = size - 2; i >= 0; i--){
         if(exp_bin.at(i) == 0){
+            cout << "i = 0" << endl;
             f2 = f1 * f2;
             f1 = f1 * f1;
         }else{
             f1 = f1 * f2;
             f2 = f2 * f2;
         }
+      cout << "f1:" << f1 << endl;
+      cout << "f2:"<<f2 << endl;
     }
     output_ = f1;
 }
